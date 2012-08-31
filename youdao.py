@@ -3,12 +3,13 @@
 
 import urllib2
 import urllib
-import simplejson as json
+#import simplejson as json
+import json
 import sys
 
 class YoudaoDic():
     """
-    有道词典API
+    Youdao dictionary API
     """
     VERSION = 1.1
 
@@ -25,7 +26,7 @@ class YoudaoDic():
 
     def translate(self, text):
         """
-        翻译方法，传入要翻译的文本，返回结果字典
+        Translation method，transmit word to server，return result
         """
         # 参数
         params = {'keyfrom': self.KEY_FROM, 'key': self.KEY, 'type': self.TYPE, 'doctype': self.DOC_TYPE, 'version': self.VERSION ,'q': text}
@@ -35,19 +36,19 @@ class YoudaoDic():
 
     def format_for_command(self, text):
         """
-        为命令行格式化翻译结果
+        Format the translation result
         """
         data = main(text)
         # TODO：格式化字符串
         if data:
-            print '有道翻译：'
-            print '\t原文本：', data.get('query', text) 
+            print 'Youdao translation:'
+            print '\t Origination text:', data.get('query', text) 
             translation = data.get('translation', None) 
             if translation: 
                 for t in translation:
-                    print '\t翻  译：', t
+                    print '\t Translation:', t
             else:
-                '未找到该词'
+                'Not found that word'
 
 def main(text):
     if text and text.strip() != '':
@@ -58,4 +59,4 @@ if __name__ == '__main__':
         l = sys.argv[1:]
         YoudaoDic().format_for_command(' '.join(l))
     else:
-        print '有道翻译： \n\t提示：请输入您要翻译的词或句子'
+        print 'Youdao translatin： \n\t Tips：Input what you want to be translated'
